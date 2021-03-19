@@ -12,18 +12,18 @@ type ObjMapper struct {
 }
 
 type Interface interface {
-	TransformRune(pos int, runes []rune)
+	TransformRune(pos int)
 	GetValueAsRuneSlice() []rune
 }
 
 func MapString(i Interface) {
-	r := i.GetValueAsRuneSlice()
-	for pos, _ := range r {
-		i.TransformRune(pos, r)
+	for pos, _ := range i.GetValueAsRuneSlice() {
+		i.TransformRune(pos)
 	}
 }
 
-func (o *ObjMapper) TransformRune(pos int, runes []rune) {
+func (o *ObjMapper) TransformRune(pos int) {
+	runes := o.GetValueAsRuneSlice()
 	runeValid := false
 	if runes[pos] >= 97 && runes[pos] <= 122 ||
 		runes[pos] >= 65 && runes[pos] <= 90 ||
